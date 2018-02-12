@@ -24,7 +24,7 @@ func main() {
 	flag.StringVar(&pcapFile, "pcap", "", "pcap file to read from (disables live mode)")
 	flag.StringVar(&device, "device", "eth0", "device")
 	flag.StringVar(&bpfFilter, "filter", "tcp and dst port 8080", "filter")
-	flag.StringVar(&outputType, "outputType", "grpc", "how output should be handled")
+	flag.StringVar(&outputType, "outputType", "grpc", "how output should be handled (grpc, console)")
 	flag.IntVar(&grpcPort, "grpcPort", 9001, "")
 	flag.BoolVar(&useTLS, "useTLS", false, "")
 	flag.StringVar(&sslCertFile, "sslCert", "ssl.crt", "")

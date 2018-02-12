@@ -1,6 +1,6 @@
 *.iml
 .vscode
-boules
 .idea
 pkg
 src
+bin

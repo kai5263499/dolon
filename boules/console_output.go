@@ -1,6 +1,11 @@
 package boules
 
-import "github.com/kai5263499/boules/generated"
+import (
+	"encoding/json"
+	"fmt"
+
+	"github.com/kai5263499/boules/generated"
+)
 
 func NewConsoleOutput(conf *Config, httpStreamChan chan *generated.HttpStream) *ConsoleOutput {
 	return &ConsoleOutput{
@@ -14,13 +19,19 @@ type ConsoleOutput struct {
 	httpStreamChan chan *generated.HttpStream
 }
 
-func (o ConsonleOutput) consumeHttpStreamChan() {
-	for httpStream := range o.consumeHttpStreamChan {
-
+func (o *ConsoleOutput) consumeHttpStreamChan() {
+	for httpStream := range o.httpStreamChan {
+		switch o.conf.OutputFormat {
+		case CurlifyOutputFormat:
+			fmt.Println(Curlify(httpStream))
+		case JsonOutputFormat:
+			jsonString, _ := json.Marshal(httpStream)
+			fmt.Println(string(jsonString))
+		}
 	}
 }
 
 func (o *ConsoleOutput) Start() error {
-	go consumeHttpStreamChan()
+	go o.consumeHttpStreamChan()
 	return nil
 }

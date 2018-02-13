@@ -12,7 +12,8 @@ import (
 	"github.com/kai5263499/boules/generated"
 )
 
-func NewGrpcOutput(conf *Config, trafficServer *TrafficServer, httpStreamChan chan *generated.HttpStream) *GrpcOutput {
+func NewGrpcOutput(conf *Config, httpStreamChan chan *generated.HttpStream) *GrpcOutput {
+	trafficServer := NewTrafficServer(conf, httpStreamChan)
 	return &GrpcOutput{
 		conf:           conf,
 		trafficServer:  trafficServer,

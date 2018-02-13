@@ -10,21 +10,23 @@ import (
 )
 
 var (
-	device      string
-	bpfFilter   string
-	pcapFile    string
-	outputType  string
-	grpcPort    int
-	useTLS      bool
-	sslCertFile string
-	sslKeyFile  string
+	device       string
+	bpfFilter    string
+	pcapFile     string
+	outputType   string
+	outputFormat string
+	grpcPort     int
+	useTLS       bool
+	sslCertFile  string
+	sslKeyFile   string
 )
 
 func main() {
 	flag.StringVar(&pcapFile, "pcap", "", "pcap file to read from (disables live mode)")
 	flag.StringVar(&device, "device", "eth0", "device")
 	flag.StringVar(&bpfFilter, "filter", "tcp and dst port 8080", "filter")
-	flag.StringVar(&outputType, "outputType", "grpc", "how output should be handled (grpc, console)")
+	flag.StringVar(&outputType, "outputType", "console", "how output should be handled (grpc, console)")
+	flag.StringVar(&outputFormat, "outputFormat", "curlify", "how output should be formatted (curlify, json)")
 	flag.IntVar(&grpcPort, "grpcPort", 9001, "")
 	flag.BoolVar(&useTLS, "useTLS", false, "")
 	flag.StringVar(&sslCertFile, "sslCert", "ssl.crt", "")
@@ -38,7 +40,8 @@ func main() {
 		CaptureDevice: device,
 		BPFFilter:     bpfFilter,
 		PcapFile:      pcapFile,
-		OutputType:    outputType,
+		OutputType:    boules.OutputType(outputType),
+		OutputFormat:  boules.OutputFormat(outputFormat),
 		GrpcPort:      grpcPort,
 		UseTLS:        useTLS,
 		SSLCertFile:   sslCertFile,
@@ -63,12 +66,19 @@ func main() {
 	}, func(error) {
 	})
 
-	if outputType == "grpc" {
-		// g.Add(func() error {
-		// 	return packetSource.Start()
-		// }, func(error) {
-		// })
+	switch conf.OutputType {
+	case boules.ConsoleOutputType:
+		consoleOutput := boules.NewConsoleOutput(conf, httpCompletedStreamChan)
+		g.Add(func() error {
+			return consoleOutput.Start()
+		}, func(error) {
+		})
+	case boules.GrpcOutputType:
+		grpcOutput := boules.NewGrpcOutput(conf, httpCompletedStreamChan)
+		g.Add(func() error {
+			return grpcOutput.Start()
+		}, func(error) {
+		})
 	}
-
 	g.Run()
 }

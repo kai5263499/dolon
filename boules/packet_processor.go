@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/davecgh/go-spew/spew"
 	"github.com/kai5263499/boules/generated"
 )
 
@@ -39,7 +40,7 @@ func (p *PacketProcessor) parseHeader(rawHeaderString string) (*generated.HttpHe
 func (p *PacketProcessor) parseRequestPayload(rawPayloadString string) *generated.HttpRequest {
 	rawPayloadString = strings.Replace(rawPayloadString, "\r", "", -1)
 
-	payloadParts := strings.Split(rawPayloadString, "\r\r")
+	payloadParts := strings.Split(rawPayloadString, "\n\n")
 
 	if len(payloadParts) < 0 {
 		return nil
@@ -81,7 +82,7 @@ func (p *PacketProcessor) parseRequestPayload(rawPayloadString string) *generate
 func (p *PacketProcessor) parseResponsePayload(rawPayloadString string) *generated.HttpResponse {
 	rawPayloadString = strings.Replace(rawPayloadString, "\r", "", -1)
 
-	payloadParts := strings.Split(rawPayloadString, "\r\r")
+	payloadParts := strings.Split(rawPayloadString, "\n\n")
 
 	if len(payloadParts) < 0 {
 		return nil
@@ -113,6 +114,8 @@ func (p *PacketProcessor) parseResponsePayload(rawPayloadString string) *generat
 }
 
 func (p *PacketProcessor) processRawCompletedStream(rawCompletedStream *generated.RawCompletedStream) {
+	spew.Dump(rawCompletedStream)
+
 	srcString := string(rawCompletedStream.SrcData)
 
 	httpRequest := p.parseRequestPayload(srcString)

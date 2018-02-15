@@ -12,21 +12,18 @@ import (
 	"github.com/kai5263499/boules/generated"
 )
 
-func NewGrpcOutput(conf *Config, httpStreamChan chan *generated.HttpStream) *GrpcOutput {
-	trafficServer := NewTrafficServer(conf, httpStreamChan)
+func NewGrpcOutput(conf *Config, trafficServer *TrafficServer) *GrpcOutput {
 	return &GrpcOutput{
-		conf:           conf,
-		trafficServer:  trafficServer,
-		httpStreamChan: httpStreamChan,
+		conf:          conf,
+		trafficServer: trafficServer,
 	}
 }
 
 type GrpcOutput struct {
-	conf           *Config
-	trafficServer  *TrafficServer
-	lis            *net.Listener
-	grpcServer     *grpc.Server
-	httpStreamChan chan *generated.HttpStream
+	conf          *Config
+	trafficServer *TrafficServer
+	lis           *net.Listener
+	grpcServer    *grpc.Server
 }
 
 func (s *GrpcOutput) Start() error {
@@ -41,7 +38,7 @@ func (s *GrpcOutput) Start() error {
 		return err
 	}
 
-	logrus.Debugf("listening on %s", listenAddress)
+	logrus.Infof("listening on %s", listenAddress)
 
 	s.lis = &lis
 

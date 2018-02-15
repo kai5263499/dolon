@@ -74,7 +74,13 @@ func main() {
 		}, func(error) {
 		})
 	case boules.GrpcOutputType:
-		grpcOutput := boules.NewGrpcOutput(conf, httpCompletedStreamChan)
+		trafficServer := boules.NewTrafficServer(conf, httpCompletedStreamChan)
+		g.Add(func() error {
+			return trafficServer.Start()
+		}, func(error) {
+		})
+
+		grpcOutput := boules.NewGrpcOutput(conf, trafficServer)
 		g.Add(func() error {
 			return grpcOutput.Start()
 		}, func(error) {

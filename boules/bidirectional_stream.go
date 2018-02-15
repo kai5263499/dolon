@@ -34,9 +34,6 @@ func (bd *BidirectionalStream) maybeFinish() {
 		logrus.Debugf("[%v] still waiting on second stream", bd.key)
 	default:
 		if bd.a.bytes > 0 && bd.b.bytes > 0 {
-			if bd.b.bytes > 1000 || bd.b.bytes == 0 {
-				return
-			}
 
 			srcPort, _ := strconv.ParseInt(bd.key.transport.Src().String(), 10, 32)
 			dstPort, _ := strconv.ParseInt(bd.key.transport.Dst().String(), 10, 32)
@@ -54,12 +51,6 @@ func (bd *BidirectionalStream) maybeFinish() {
 				DstData: bd.b.completePayload.Bytes(),
 			}
 			bd.rawCompletedStreamChan <- rs
-
-			// logrus.Infof("[%v] FINISHED, bytes: %d tx, %d rx\n", bd.key, bd.a.bytes, bd.b.bytes)
-			// logrus.Infof("tx payload: %#v\n", string(bd.a.completePayload.Bytes()))
-			// if bd.b.bytes < 1000 {
-			// 	logrus.Infof("rx payload: %#v\n", string(bd.b.completePayload.Bytes()))
-			// }
 		}
 	}
 }

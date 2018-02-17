@@ -1,4 +1,4 @@
-package boules
+package dolon
 
 type OutputType string
 

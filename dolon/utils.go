@@ -1,10 +1,10 @@
-package boules
+package dolon
 
 import (
 	"bytes"
 	"fmt"
 
-	"github.com/kai5263499/boules/generated"
+	"github.com/kai5263499/dolon/generated"
 )
 
 func Curlify(httpStream *generated.HttpStream) string {

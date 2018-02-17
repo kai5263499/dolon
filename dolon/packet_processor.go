@@ -1,4 +1,4 @@
-package boules
+package dolon
 
 import (
 	"errors"
@@ -6,8 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/davecgh/go-spew/spew"
-	"github.com/kai5263499/boules/generated"
+	"github.com/kai5263499/dolon/generated"
 )
 
 func NewPacketProcessor(conf *Config, rawCompletedStreamChan chan *generated.RawCompletedStream, httpStreamChan chan *generated.HttpStream) *PacketProcessor {
@@ -114,8 +113,6 @@ func (p *PacketProcessor) parseResponsePayload(rawPayloadString string) *generat
 }
 
 func (p *PacketProcessor) processRawCompletedStream(rawCompletedStream *generated.RawCompletedStream) {
-	spew.Dump(rawCompletedStream)
-
 	srcString := string(rawCompletedStream.SrcData)
 
 	httpRequest := p.parseRequestPayload(srcString)

@@ -4,8 +4,8 @@ import (
 	"flag"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/kai5263499/boules/boules"
-	"github.com/kai5263499/boules/generated"
+	"github.com/kai5263499/dolon/dolon"
+	"github.com/kai5263499/dolon/generated"
 	"github.com/oklog/run"
 )
 
@@ -36,12 +36,12 @@ func main() {
 
 	logrus.SetLevel(logrus.InfoLevel)
 
-	conf := &boules.Config{
+	conf := &dolon.Config{
 		CaptureDevice: device,
 		BPFFilter:     bpfFilter,
 		PcapFile:      pcapFile,
-		OutputType:    boules.OutputType(outputType),
-		OutputFormat:  boules.OutputFormat(outputFormat),
+		OutputType:    dolon.OutputType(outputType),
+		OutputFormat:  dolon.OutputFormat(outputFormat),
 		GrpcPort:      grpcPort,
 		UseTLS:        useTLS,
 		SSLCertFile:   sslCertFile,
@@ -51,9 +51,9 @@ func main() {
 	rawCompletedStreamChan := make(chan *generated.RawCompletedStream, 1000)
 	httpCompletedStreamChan := make(chan *generated.HttpStream, 1000)
 
-	packetSource := boules.NewPacketSource(conf, rawCompletedStreamChan)
+	packetSource := dolon.NewPacketSource(conf, rawCompletedStreamChan)
 
-	packetProcessor := boules.NewPacketProcessor(conf, rawCompletedStreamChan, httpCompletedStreamChan)
+	packetProcessor := dolon.NewPacketProcessor(conf, rawCompletedStreamChan, httpCompletedStreamChan)
 
 	var g run.Group
 	g.Add(func() error {
@@ -67,20 +67,20 @@ func main() {
 	})
 
 	switch conf.OutputType {
-	case boules.ConsoleOutputType:
-		consoleOutput := boules.NewConsoleOutput(conf, httpCompletedStreamChan)
+	case dolon.ConsoleOutputType:
+		consoleOutput := dolon.NewConsoleOutput(conf, httpCompletedStreamChan)
 		g.Add(func() error {
 			return consoleOutput.Start()
 		}, func(error) {
 		})
-	case boules.GrpcOutputType:
-		trafficServer := boules.NewTrafficServer(conf, httpCompletedStreamChan)
+	case dolon.GrpcOutputType:
+		trafficServer := dolon.NewTrafficServer(conf, httpCompletedStreamChan)
 		g.Add(func() error {
 			return trafficServer.Start()
 		}, func(error) {
 		})
 
-		grpcOutput := boules.NewGrpcOutput(conf, trafficServer)
+		grpcOutput := dolon.NewGrpcOutput(conf, trafficServer)
 		g.Add(func() error {
 			return grpcOutput.Start()
 		}, func(error) {

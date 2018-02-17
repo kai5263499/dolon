@@ -1,4 +1,4 @@
-package boules
+package dolon
 
 import (
 	"time"
@@ -8,7 +8,7 @@ import (
 	"github.com/google/gopacket/layers"
 	"github.com/google/gopacket/pcap"
 	"github.com/google/gopacket/tcpassembly"
-	"github.com/kai5263499/boules/generated"
+	"github.com/kai5263499/dolon/generated"
 )
 
 // timeout is the length of time to wait befor flushing connections and

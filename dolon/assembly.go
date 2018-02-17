@@ -1,4 +1,4 @@
-package boules
+package dolon
 
 import (
 	"bytes"
@@ -7,7 +7,7 @@ import (
 	"github.com/Sirupsen/logrus"
 	"github.com/google/gopacket"
 	"github.com/google/gopacket/tcpassembly"
-	"github.com/kai5263499/boules/generated"
+	"github.com/kai5263499/dolon/generated"
 )
 
 // StreamFactory implements tcpassmebly.StreamFactory

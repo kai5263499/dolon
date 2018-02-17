@@ -1,10 +1,8 @@
-package boules
+package dolon
 
 import (
-	"github.com/Sirupsen/logrus"
-	"github.com/davecgh/go-spew/spew"
 	google_protobuf "github.com/golang/protobuf/ptypes/empty"
-	"github.com/kai5263499/boules/generated"
+	"github.com/kai5263499/dolon/generated"
 )
 
 func NewTrafficServer(conf *Config, httpStreamChan chan *generated.HttpStream) *TrafficServer {
@@ -41,8 +39,6 @@ func (s *TrafficServer) GetHttpStream(empty *google_protobuf.Empty, stream gener
 	s.clientHttpStreamChans[stream] = clientStreamChan
 
 	for httpStream := range clientStreamChan {
-		logrus.Infof("got httpStream")
-		spew.Dump(httpStream)
 		stream.Send(httpStream)
 	}
 

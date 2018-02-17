@@ -1,4 +1,4 @@
-package boules
+package dolon
 
 import (
 	"fmt"

@@ -1,11 +1,11 @@
-package boules
+package dolon
 
 import (
 	"strconv"
 	"time"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/kai5263499/boules/generated"
+	"github.com/kai5263499/dolon/generated"
 )
 
 // bidi stores each unidirectional side of a bidirectional stream.

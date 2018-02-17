@@ -1,4 +1,4 @@
-package boules
+package dolon
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 
-	"github.com/kai5263499/boules/generated"
+	"github.com/kai5263499/dolon/generated"
 )
 
 func NewGrpcOutput(conf *Config, trafficServer *TrafficServer) *GrpcOutput {

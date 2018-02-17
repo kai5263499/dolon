@@ -1,10 +1,10 @@
-package boules
+package dolon
 
 import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/kai5263499/boules/generated"
+	"github.com/kai5263499/dolon/generated"
 )
 
 func NewConsoleOutput(conf *Config, httpStreamChan chan *generated.HttpStream) *ConsoleOutput {

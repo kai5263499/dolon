@@ -10,7 +10,7 @@ import (
 	"github.com/davecgh/go-spew/spew"
 	"github.com/kai5263499/dolon/generated"
 
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	google_protobuf "github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"

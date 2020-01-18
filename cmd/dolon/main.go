@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"github.com/kai5263499/dolon/dolon"
 	"github.com/kai5263499/dolon/generated"
 	"github.com/oklog/run"

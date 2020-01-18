@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"time"
 
-	"github.com/Sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 	"github.com/google/gopacket"
 	"github.com/google/gopacket/tcpassembly"
 	"github.com/kai5263499/dolon/generated"

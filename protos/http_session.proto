@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package types;
+
+message HttpSession {
+	HttpRequest Request = 1;
+	HttpResponse Response = 2;
+}
+
+message HttpHeader {
+	string Key = 1;
+	string Value = 2;
+}
+
+message HttpRequest {
+    string Host = 1;
+    uint32 Port = 2;
+	string Verb = 3;
+	string Uri = 4;
+	string HttpVersion = 5;
+	repeated HttpHeader headers = 6;
+	bytes body = 7;
+}
+
+message HttpResponse {
+    string Host = 1;
+    uint32 Port = 2;
+	string Version = 3;
+	int32 Code = 4;
+	repeated HttpHeader Headers = 5;
+	bytes Body = 6;
+}

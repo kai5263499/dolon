@@ -1,3 +1,6 @@
+cmd/source_to_file/source_to_file
+cmd/file_to_processor/file_to_processor
+
 *.iml
 .vscode
 .idea

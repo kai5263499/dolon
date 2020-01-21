@@ -1,3 +1,2 @@
-.PHONY: gen_protos
-gen_protos:
-	protoc --proto_path=definitions --go_out=plugins=grpc:generated definitions/*.proto
+gen-protos:
+	protoc --proto_path=protos --go_out=types protos/*.proto

@@ -6,6 +6,7 @@ import (
 	types "github.com/kai5263499/dolon/types"
 )
 
+// Curlify takes an HttpSession and returns a curl command that approxiamtes the http request
 func Curlify(httpSession *types.HttpSession) string {
 	var buffer bytes.Buffer
 

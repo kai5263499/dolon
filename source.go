@@ -26,8 +26,6 @@ func NewSource() *Source {
 const streamTimeout time.Duration = time.Minute * 2
 
 type Source struct {
-	captureDevice  string
-	bpfFilter      string
 	tcpSessionChan chan *types.TcpSession
 	timeout        time.Duration
 }
@@ -35,16 +33,16 @@ type Source struct {
 func (s *Source) Pcap(pcapFile string) error {
 	var err error
 
+	logrus.WithFields(logrus.Fields{
+		"pcapFile": pcapFile,
+	}).Infof("starting process packet loop")
+
 	handle, err := pcap.OpenOffline(pcapFile)
 	if err != nil {
 		return err
 	}
 
 	s.timeout = time.Millisecond * 100
-
-	logrus.WithFields(logrus.Fields{
-		"pcapFile": pcapFile,
-	}).Debugf("starting process packet loop")
 
 	go s.processPackets(handle)
 
@@ -54,22 +52,22 @@ func (s *Source) Pcap(pcapFile string) error {
 func (s *Source) Device(captureDevice, bpfFilter string) error {
 	var err error
 
-	handle, err := pcap.OpenLive(s.captureDevice, 1600, true, pcap.BlockForever)
-	if err != nil {
-		return err
-	}
-
-	err = handle.SetBPFFilter(s.bpfFilter)
-	if err != nil {
-		return err
-	}
-
-	s.timeout = time.Second * 5
-
 	logrus.WithFields(logrus.Fields{
 		"captureDevice": captureDevice,
 		"bpfFilter":     bpfFilter,
-	}).Debugf("starting process packet loop")
+	}).Infof("starting process packet loop")
+
+	handle, err := pcap.OpenLive(captureDevice, 65536, true, pcap.BlockForever)
+	if err != nil {
+		return err
+	}
+
+	err = handle.SetBPFFilter(bpfFilter)
+	if err != nil {
+		return err
+	}
+
+	s.timeout = time.Minute * 5
 
 	go s.processPackets(handle)
 

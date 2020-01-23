@@ -27,8 +27,7 @@ var (
 
 func checkError(err error) {
 	if err != nil {
-		logrus.WithFields(logrus.Fields{"err": err}).Errorf("encountered unrecoverable err")
-		panic(err)
+		logrus.WithFields(logrus.Fields{"err": err}).Fatalf("encountered unrecoverable err")
 	}
 }
 
@@ -74,7 +73,9 @@ func main() {
 func processFromDevice(source interfaces.Source, wg *sync.WaitGroup) {
 	defer wg.Done()
 
-	source.Device(device, bpfFilter)
+	logrus.Infof("before device")
+	err := source.Device(device, bpfFilter)
+	checkError(err)
 }
 
 func processHttpSessions(processor interfaces.HttpProcessor, wg *sync.WaitGroup) {

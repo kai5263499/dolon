@@ -27,11 +27,11 @@ func (bd *BidirectionalStream) maybeFinish() {
 	case bd.a == nil:
 		logrus.Errorf("[%v] a should always be non-nil, since it's set when bidis are created", bd.key)
 	case !bd.a.done:
-		logrus.Debugf("[%v] still waiting on first stream", bd.key)
+		logrus.Tracef("[%v] still waiting on first stream", bd.key)
 	case bd.b == nil:
-		logrus.Debugf("[%v] no second stream yet", bd.key)
+		logrus.Tracef("[%v] no second stream yet", bd.key)
 	case !bd.b.done:
-		logrus.Debugf("[%v] still waiting on second stream", bd.key)
+		logrus.Tracef("[%v] still waiting on second stream", bd.key)
 	default:
 		if bd.a.bytes > 0 && bd.b.bytes > 0 {
 

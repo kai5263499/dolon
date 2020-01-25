@@ -34,17 +34,17 @@ func (m *MockSource) EXPECT() *MockSourceMockRecorder {
 }
 
 // Pcap mocks base method
-func (m *MockSource) Pcap(arg0 string) error {
+func (m *MockSource) Pcap(arg0, arg1 string) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Pcap", arg0)
+	ret := m.ctrl.Call(m, "Pcap", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // Pcap indicates an expected call of Pcap
-func (mr *MockSourceMockRecorder) Pcap(arg0 interface{}) *gomock.Call {
+func (mr *MockSourceMockRecorder) Pcap(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Pcap", reflect.TypeOf((*MockSource)(nil).Pcap), arg0)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Pcap", reflect.TypeOf((*MockSource)(nil).Pcap), arg0, arg1)
 }
 
 // Device mocks base method

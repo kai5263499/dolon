@@ -30,7 +30,7 @@ type Source struct {
 	timeout        time.Duration
 }
 
-func (s *Source) Pcap(pcapFile string) error {
+func (s *Source) Pcap(pcapFile string, bpfFilter string) error {
 	var err error
 
 	logrus.WithFields(logrus.Fields{
@@ -38,6 +38,11 @@ func (s *Source) Pcap(pcapFile string) error {
 	}).Infof("starting process packet loop")
 
 	handle, err := pcap.OpenOffline(pcapFile)
+	if err != nil {
+		return err
+	}
+
+	err = handle.SetBPFFilter(bpfFilter)
 	if err != nil {
 		return err
 	}

@@ -13,7 +13,7 @@ var _ = Describe("source", func() {
 
 		source := NewSource()
 
-		err = source.Pcap("testdata/http.pcap")
+		err = source.Pcap("testdata/http.pcap", "")
 		Expect(err).To(BeNil())
 
 		ticker := time.NewTicker((time.Millisecond * 100))

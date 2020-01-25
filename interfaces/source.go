@@ -6,7 +6,7 @@ import (
 
 // Source mines packet captures and produces TCP Sessions
 type Source interface {
-	Pcap(string) error
+	Pcap(string, string) error
 	Device(string, string) error
 	TcpSessionChan() chan *types.TcpSession
 }

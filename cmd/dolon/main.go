@@ -73,7 +73,6 @@ func main() {
 func processFromDevice(source interfaces.Source, wg *sync.WaitGroup) {
 	defer wg.Done()
 
-	logrus.Infof("before device")
 	err := source.Device(device, bpfFilter)
 	checkError(err)
 }

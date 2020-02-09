@@ -1,5 +1,7 @@
 # Dolon
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/kai5263499/dolon)](https://goreportcard.com/report/github.com/kai5263499/dolon)
+
 ## Background
 Dolon is one of the most notorious [spies in Greek mythology](https://en.wikipedia.org/wiki/Dolon_(mythology)), and that's what this project is all about. Using gopacket the dolon binary captures a complete HTTP stream and then it can either send the complete HttpStream data as a protobuf to clients via GRPC or it can print the request portion as a curl command.
 

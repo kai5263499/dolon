@@ -8,7 +8,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-// bidi stores each unidirectional side of a bidirectional stream.
+// BidirectionalStream stores each unidirectional side of a bidirectional stream.
 //
 // When a new stream comes in, if we don't have an opposite stream, a bidi is
 // created with 'a' set to the new stream.  If we DO have an opposite stream,

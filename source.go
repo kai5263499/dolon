@@ -121,6 +121,7 @@ func (s *Source) processPackets(handle *pcap.Handle) {
 	}
 }
 
+// TcpSessionChan returns a channel of type.TcpSession
 func (s *Source) TcpSessionChan() chan *types.TcpSession {
 	return s.tcpSessionChan
 }

@@ -66,6 +66,8 @@ func main() {
 	wg.Wait()
 
 	err = pw.WriteStop()
+	checkError(err)
+
 	fw.Close()
 }
 
@@ -74,7 +76,7 @@ func processPcap(filename string, source interfaces.Source, pw *writer.ParquetWr
 
 	var err error
 
-	err = source.Pcap(filename)
+	err = source.Pcap(filename, "")
 	checkError(err)
 
 	ticker := time.NewTicker((time.Millisecond * 100))

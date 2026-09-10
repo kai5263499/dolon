@@ -40,7 +40,7 @@ var (
 
 type mockSource struct{}
 
-func (s *mockSource) Pcap(pcapFile string) error {
+func (s *mockSource) Pcap(pcapFile, bpfFilter string) error {
 	return nil
 }
 
